@@ -10,12 +10,14 @@ public class RandomStarThread extends Thread {
     private Random random = new Random();
 
     public RandomStarThread(StarAnimation starAnimation) {
-            this.starAnimation = starAnimation;
+        this.starAnimation = starAnimation;
     }
 
     @Override
     public void run() {
-        for (;;) {
+
+
+        for (; ; ) {
             int num = random.nextInt(1);
 
             if (num == 0) {
@@ -30,5 +32,6 @@ public class RandomStarThread extends Thread {
                 e.printStackTrace();
             }
         }
+
     }
 }
