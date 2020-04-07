@@ -17,7 +17,9 @@ public class StarAnimation extends Animation {
     /* the field of stars */
     public static final int INIT_STAR_COUNT = 100;
     private Vector<Star> field = new Vector<Star>();
+
     private int progress = 0;
+    private RandomStarThread starThread = new RandomStarThread(this);
 
     /* when this is set to 'false' the next animation frame won't twinkle */
     private boolean twinkle = true;
@@ -25,6 +27,7 @@ public class StarAnimation extends Animation {
     /** ctor expects to be told the size of the animation canvas */
     public StarAnimation(int initWidth, int initHeight) {
         super(initWidth, initHeight);
+        starThread.start();
     }
 
     /** whenever the canvas size changes, generate new stars */
@@ -82,21 +85,16 @@ public class StarAnimation extends Animation {
         int difference = newProgress - progress;
 
         if (difference > 0) {
-            for (int i = 0; i < difference; i++) {
+            for (int i = 0; i < difference * 9; i++) {
                 addStar();
             }
+
         } else {
-            for (int i = 0; i > difference; i--) {
+            for (int i = 0; i > difference * 9; i--) {
                 removeStar();
             }
         }
         progress = newProgress;
-
-        if (field.size() < 100) {
-            addStar();
-        }
-        if (field.size() > 1000) {
-            removeStar();
-        }
+        System.out.println(field.size());
     }
 }//class StarAnimation
