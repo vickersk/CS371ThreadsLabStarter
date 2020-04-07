@@ -26,21 +26,22 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
 
         //Setup the animation(s)
-        myAV = (AnimationView)findViewById(R.id.animationArea);
+        myAV = (AnimationView) findViewById(R.id.animationArea);
         myAV.addAnimation(new StarAnimation(myAV.getMyWidth(), myAV.getMyHeight()));
 
         //Let me know when someone taps the button
-        theButton = (Button)findViewById(R.id.button);
+        theButton = (Button) findViewById(R.id.button);
         theButton.setOnClickListener(this);
 
         //Let me know when someone adjusts the seekbar
-        theSeekBar = (SeekBar)findViewById(R.id.seekBar);
+        theSeekBar = (SeekBar) findViewById(R.id.seekBar);
         theSeekBar.setOnSeekBarChangeListener(this);
+
     }//onClick
 
     @Override
     public void onClick(View v) {
-        myAV.postInvalidate();
+        myAV.animate();
     }
 
     @Override
@@ -49,9 +50,14 @@ public class MainActivity extends Activity
         myAV.postInvalidate();
     }
 
-    /** These two methods aren't used */
+    /**
+     * These two methods aren't used
+     */
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {}
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
+
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+    }
 }
