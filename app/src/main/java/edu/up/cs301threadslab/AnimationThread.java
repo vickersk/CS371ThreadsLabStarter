@@ -14,7 +14,7 @@ public class AnimationThread extends Thread {
             animationView.postInvalidate();
 
             try {
-                Thread.sleep(3000);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

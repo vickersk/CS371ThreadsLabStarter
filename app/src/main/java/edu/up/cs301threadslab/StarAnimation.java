@@ -17,6 +17,7 @@ public class StarAnimation extends Animation {
     /* the field of stars */
     public static final int INIT_STAR_COUNT = 100;
     private Vector<Star> field = new Vector<Star>();
+    private int progress = 0;
 
     /* when this is set to 'false' the next animation frame won't twinkle */
     private boolean twinkle = true;
@@ -77,5 +78,25 @@ public class StarAnimation extends Animation {
         int brightness = 255 - (newProgress * 2);
         Star.starPaint.setColor(Color.rgb(brightness, brightness, brightness));
         this.twinkle = false;
+
+        int difference = newProgress - progress;
+
+        if (difference > 0) {
+            for (int i = 0; i < difference; i++) {
+                addStar();
+            }
+        } else {
+            for (int i = 0; i > difference; i--) {
+                removeStar();
+            }
+        }
+        progress = newProgress;
+
+        if (field.size() < 100) {
+            addStar();
+        }
+        if (field.size() > 1000) {
+            removeStar();
+        }
     }
 }//class StarAnimation
