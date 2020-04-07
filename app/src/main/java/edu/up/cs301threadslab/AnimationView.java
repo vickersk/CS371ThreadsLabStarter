@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 /**
  * AnimationView
- *
+ * <p>
  * displays a collection of animations
  *
  * @author Andrew Nuxoll
  * @version Fall 2015
  */
-public class AnimationView extends SurfaceView{
+public class AnimationView extends SurfaceView {
     // track the current dimensions of this surface view
     private int width;
     private int height;
@@ -24,7 +24,9 @@ public class AnimationView extends SurfaceView{
     //a list of the animations I'm currently displaying
     private ArrayList<Animation> anims = new ArrayList<Animation>();
 
-    /** called by the ctors to initialize the variables I've added to this class */
+    /**
+     * called by the ctors to initialize the variables I've added to this class
+     */
     private void myInitializationStuff() {
         setWillNotDraw(false);
         setBackgroundColor(Color.BLACK);  //enforce a black background for all animations
@@ -46,13 +48,15 @@ public class AnimationView extends SurfaceView{
         myInitializationStuff();
     }
 
-    /** keep track of my dimensions on the screen */
+    /**
+     * keep track of my dimensions on the screen
+     */
     @Override
     protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld) {
         super.onSizeChanged(xNew, yNew, xOld, yOld);
         this.width = xNew;
         this.height = yNew;
-        for(Animation anim : anims) {
+        for (Animation anim : anims) {
             anim.setSize(this.width, this.height);
         }
     }
@@ -68,26 +72,37 @@ public class AnimationView extends SurfaceView{
         return this.height;
     }
 
-    /** add an animation */
+    /**
+     * add an animation
+     */
     public void addAnimation(Animation newAnim) {
         anims.add(newAnim);
     }
 
-    /** draw the animations */
+    /**
+     * draw the animations
+     */
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        for(Animation anim : anims) {
+        for (Animation anim : anims) {
             anim.draw(canvas);
             postInvalidate();
+
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }//draw
 
-    /** This method is called each time the seekbar's progress changes.  This will always be a
-     *  value between 1 and 100.
+    /**
+     * This method is called each time the seekbar's progress changes.  This will always be a
+     * value between 1 and 100.
      */
     public void progressChange(int newProgress) {
-        for(Animation anim: anims) {
+        for (Animation anim : anims) {
             anim.progressChange(newProgress);
         }
     }
